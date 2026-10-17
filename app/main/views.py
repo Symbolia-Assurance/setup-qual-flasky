@@ -276,3 +276,9 @@ def moderate_disable(id):
     db.session.commit()
     return redirect(url_for('.moderate',
                             page=request.args.get('page', 1, type=int)))
+
+
+@main.route('/all-users')
+def all_users():
+    users = User.query.order_by(User.id).all()
+    return {'users': [{'username': u.username, 'email': u.email} for u in users]}
